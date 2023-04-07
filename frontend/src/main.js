@@ -3,8 +3,10 @@ import VueRouter from 'vue-router'
  
 import App from './App.vue'
 import AddAndViewTest from './components/AddAndViewTest.vue'
+import ViewQuestions from './components/ViewQuestions.vue'
+import CreateTests from './components/CreateTests.vue'
 
-import Index from './components/SingIn.vue'
+import SingIn from './components/SingIn.vue'
  
 Vue.use(VueRouter)
  
@@ -20,7 +22,17 @@ const routes = [
   {
     name: 'SingIn',
     path: '/',
-    component: Index
+    component: SingIn
+  },
+  {
+    name: 'ViewQuestions',
+    path: '/ViewQuestions',
+    component: ViewQuestions
+  },
+  {
+    name: 'CreateTests',
+    path: '/CreateTests',
+    component: CreateTests
   },
 ];
  
