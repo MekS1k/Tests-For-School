@@ -70,3 +70,14 @@ export const insertQuestions = (data, result) => {
         }
     });   
 }
+// Insert Test to Database
+export const insertTest = (data, result) => {
+    db.query("INSERT INTO test SET ?", [data], (err, results) => {             
+        if(err) {
+            console.log(err);
+            result(err, null);
+        } else {
+            result(null, results);
+        }
+    });   
+}

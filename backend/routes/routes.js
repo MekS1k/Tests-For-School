@@ -2,7 +2,7 @@
 import express from "express";
  
 // import function from controller
-import { showProducts, showProductById, showRole, showQuestions,showTest,createQuestions } from "../controllers/product.js";
+import { showProducts, showProductById, showRole, showQuestions,showTest,createQuestions , createTest} from "../controllers/product.js";
  
 // init express router
 const router = express.Router();
@@ -17,5 +17,6 @@ router.get('/Tests', showTest);
 router.get('/credentials/:id', showProductById);
  
 router.post('/questions', createQuestions);
+router.post('/Tests', createTest);
 // export default router
 export default router;

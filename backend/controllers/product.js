@@ -1,5 +1,5 @@
 // Import function from Product Model
-import {getRole, getProducts, getProductById, getQuestions, getTests,insertQuestions} from "../models/productModel.js";
+import {getRole, getProducts, getProductById, getQuestions, getTests,insertQuestions,insertTest} from "../models/productModel.js";
  
 // Get All Products
 export const showProducts = (req, res) => {
@@ -56,6 +56,17 @@ export const showProductById = (req, res) => {
 export const createQuestions = (req, res) => {
     const data = req.body;
     insertQuestions(data, (err, results) => {
+        if (err){
+            res.send(err);
+        }else{
+            res.json(results);
+        }
+    });
+}
+// Create New Test
+export const createTest = (req, res) => {
+    const data = req.body;
+    insertTest(data, (err, results) => {
         if (err){
             res.send(err);
         }else{
