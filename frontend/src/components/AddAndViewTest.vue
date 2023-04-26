@@ -3,7 +3,7 @@
     <button @click="createTest()">Создать тест</button>
     <label>Список всех тестов</label>
     <div v-for="test in test" :key="test.id">
-      <button>{{ test.TestName }}</button>
+      <button @click="getTestID(test.idTest)">{{ test.TestName }}</button>
     </div>
   </div>
 </template>
@@ -18,6 +18,12 @@ export default {
   methods: {
     createTest() {
       this.$router.push({ name: "CreateDataTests" });
+    },
+
+    getTestID(testID) {
+      this.$store.state.testID = testID;
+      console.log(this.$store.state.testID);
+      this.$router.push({ name: "ViewQuestions" });
     },
 
     async viewTest() {

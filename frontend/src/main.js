@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from './store'
  
 import App from './App.vue'
 import AddAndViewTest from './components/AddAndViewTest.vue'
@@ -47,5 +48,8 @@ const router = new VueRouter({ mode: 'history', routes: routes })
 new Vue({
   // init router
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')
+
+
