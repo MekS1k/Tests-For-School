@@ -32,6 +32,7 @@ export default {
         const testJson = await test.json();
         console.log(testJson);
         this.test = testJson;
+        this.$store.state.AllTests = this.test;
       } catch (err) {
         console.log(err);
       }

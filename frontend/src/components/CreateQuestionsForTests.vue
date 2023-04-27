@@ -5,11 +5,23 @@
       type="text"
       v-model="TextQuestion"
     />
-    <input
+    <select
+      v-model="selected"
+      @change="getTestID(selected)"
       placeholder="Введите айди теста, которому нужно добавить вопрос"
-      type="text"
-      v-model="test_id"
-    />
+      name=""
+      id=""
+    >
+      <option value="">Выберите тест, которому нужно добавить вопрос</option>
+      <option
+        v-for="testName in AllTests"
+        :key="testName.id"
+        :value="testName.idTest"
+      >
+        {{ testName.TestName }}
+      </option>
+    </select>
+
     <input placeholder="Введите вариант ответа" type="text" v-model="Answer1" />
     <input placeholder="Введите вариант ответа" type="text" v-model="Answer2" />
     <input placeholder="Введите вариант ответа" type="text" v-model="Answer3" />
@@ -28,12 +40,14 @@ import axios from "axios";
 export default {
   data() {
     return {
+      selected: "",
       AnswerQuestion: "",
       TextQuestion: "",
       Answer1: "",
       Answer2: "",
       Answer3: "",
       test_id: "",
+      AllTests: this.$store.state.AllTests,
     };
   },
   methods: {
@@ -56,6 +70,10 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+
+    getTestID(id) {
+      this.test_id = id;
     },
   },
 };
