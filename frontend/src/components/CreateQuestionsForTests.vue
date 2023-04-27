@@ -7,8 +7,9 @@
     />
     <select v-model="selected" @change="getTestID(selected)" name="" id="">
       <option value="">Выберите тест, которому нужно добавить вопрос</option>
+
       <option
-        v-for="testName in AllTests"
+        v-for="testName in filteredTests"
         :key="testName.id"
         :value="testName.idTest"
       >
@@ -40,15 +41,21 @@ export default {
       Answer2: "",
       Answer3: "",
       test_id: "",
-      AllTests: "",
+      AllTests: [],
+      userID: this.$store.state.UserID,
     };
   },
   methods: {
     async viewTest() {
       try {
-        const test = await fetch("http://localhost:5000/Tests");
-        const testJson = await test.json();
-        this.AllTests = testJson;
+        const testResponse = await axios.get("http://localhost:5000/Tests");
+        const allTests = testResponse.data;
+        this.AllTests = allTests.map((test) => ({
+          id: test.id,
+          TestCreator: test.TestCreator,
+          idTest: test.idTest,
+          TestName: test.TestName,
+        }));
       } catch (err) {
         console.log(err);
       }
@@ -76,6 +83,11 @@ export default {
 
     getTestID(id) {
       this.test_id = id;
+    },
+  },
+  computed: {
+    filteredTests() {
+      return this.AllTests.filter((test) => test.TestCreator == this.userID);
     },
   },
   mounted() {
