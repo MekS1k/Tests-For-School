@@ -16,17 +16,17 @@
       type="text"
       v-model="DateOfFinishTest"
     />
-    <input
-      placeholder="Введите айди создателя теста"
-      type="text"
-      v-model="TestCreator"
-    />
     <!-- Тестирующихся может быть много - доработать -->
-    <input
-      placeholder="Введите того, кто будет проходить тест"
-      type="text"
-      v-model="Tested"
-    />
+    <select v-model="selected" @change="getRoleID(selected)" name="" id="">
+      <option value="">Выберите того, кто будет проходить тест</option>
+      <option
+        v-for="RoleName in allRole"
+        :key="RoleName.id"
+        :value="RoleName.ID"
+      >
+        {{ RoleName.roule_name }}
+      </option>
+    </select>
     <button @click="saveTest">Добавить вопросы</button>
   </div>
 </template>
@@ -42,6 +42,9 @@ export default {
       DateOfFinishTest: "",
       TestCreator: "",
       Tested: "",
+      selected: "",
+      allRole: this.$store.state.role,
+      UserID: this.$store.state.UserID,
     };
   },
   methods: {
@@ -52,7 +55,7 @@ export default {
           TestName: this.TestName,
           DateOfCreateTest: this.DateOfCreateTest,
           DateOfFinishTest: this.DateOfFinishTest,
-          TestCreator: this.TestCreator,
+          TestCreator: this.UserID,
           Tested: this.Tested,
         });
         this.idTest = "";
@@ -65,6 +68,11 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+
+    getRoleID(id) {
+      this.Tested = id;
+      console.log(this.Tested);
     },
   },
 };
