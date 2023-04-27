@@ -1,9 +1,13 @@
 <template>
   <div>
-    <button @click="createTest()">Создать тест</button>
+    <div v-if="teacher">
+      <button @click="createTest()">Создать тест</button>
+    </div>
     <label>Список всех тестов</label>
     <div v-for="test in test" :key="test.id">
-      <button @click="getTestID(test.idTest)">{{ test.TestName }}</button>
+      <div v-if="test.TestCreator == userID || test.Tested == userID">
+        <button @click="getTestID(test.idTest)">{{ test.TestName }}</button>
+      </div>
     </div>
   </div>
 </template>
@@ -13,6 +17,8 @@ export default {
   data() {
     return {
       test: [],
+      teacher: true,
+      userID: this.$store.state.UserID,
     };
   },
   methods: {
@@ -37,9 +43,17 @@ export default {
         console.log(err);
       }
     },
+
+    checkTeacher() {
+      if (this.$store.state.roleForUnderstande == 2) {
+        this.teacher = false;
+      }
+    },
   },
   mounted() {
     this.viewTest();
+    this.checkTeacher();
+    console.log(this.$store.state.UserID);
   },
 };
 </script>
