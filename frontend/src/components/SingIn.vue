@@ -33,6 +33,8 @@ export default {
       credentials: [],
       login: "",
       pass: "",
+      role: [],
+      UserID: "",
     };
   },
   methods: {
@@ -42,10 +44,24 @@ export default {
         const credentials = await fetch("http://localhost:5000/credentials");
         const data = await credentials.json();
         this.credentials = data;
+        this.$store.state.users = this.credentials;
+        console.log(this.$store.state.users);
       } catch (err) {
         console.log(err);
       }
     },
+
+    async takeRole() {
+      try {
+        const role = await fetch("http://localhost:5000/role");
+        const data = await role.json();
+        this.role = data;
+        this.$store.state.role = this.role;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     SingIN() {
       console.log(this.credentials);
       for (let i in this.credentials) {
@@ -54,6 +70,9 @@ export default {
           this.credentials[i].Пароль == this.pass
         ) {
           this.$router.push({ name: "AddAndViewTest" });
+          this.UserID = this.credentials[i].UserID;
+          this.$store.state.roleForUnderstande = this.credentials[i].IDРоли;
+          this.$store.state.UserID = this.UserID;
         } else {
           console.log("Данные не верны");
         }
@@ -62,6 +81,7 @@ export default {
   },
   mounted() {
     this.saveProduct();
+    this.takeRole();
   },
 };
 </script>
