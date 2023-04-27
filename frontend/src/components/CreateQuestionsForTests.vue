@@ -5,13 +5,7 @@
       type="text"
       v-model="TextQuestion"
     />
-    <select
-      v-model="selected"
-      @change="getTestID(selected)"
-      placeholder="Введите айди теста, которому нужно добавить вопрос"
-      name=""
-      id=""
-    >
+    <select v-model="selected" @change="getTestID(selected)" name="" id="">
       <option value="">Выберите тест, которому нужно добавить вопрос</option>
       <option
         v-for="testName in AllTests"
@@ -31,7 +25,6 @@
       v-model="AnswerQuestion"
     />
     <button @click="saveQuestions">Сохранить вопрос</button>
-    <button>Добавить вопрос</button>
   </div>
 </template>
 
@@ -47,10 +40,20 @@ export default {
       Answer2: "",
       Answer3: "",
       test_id: "",
-      AllTests: this.$store.state.AllTests,
+      AllTests: "",
     };
   },
   methods: {
+    async viewTest() {
+      try {
+        const test = await fetch("http://localhost:5000/Tests");
+        const testJson = await test.json();
+        this.AllTests = testJson;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     async saveQuestions() {
       try {
         await axios.post("http://localhost:5000/Questions", {
@@ -66,7 +69,6 @@ export default {
         this.Answer1 = "";
         this.Answer2 = "";
         this.Answer3 = "";
-        this.test_id = "";
       } catch (err) {
         console.log(err);
       }
@@ -75,6 +77,9 @@ export default {
     getTestID(id) {
       this.test_id = id;
     },
+  },
+  mounted() {
+    this.viewTest();
   },
 };
 </script>
