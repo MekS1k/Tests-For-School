@@ -6,7 +6,13 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     testID: "",
-    AllTests:[]
+    AllTests:[],
+    TestResult:0,
+    AllQuestions:[],
+    role:[],
+    users:[],
+    UserID:"",
+    roleForUnderstande:0
   },
   getters: {
   },

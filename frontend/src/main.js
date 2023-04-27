@@ -7,6 +7,7 @@ import AddAndViewTest from './components/AddAndViewTest.vue'
 import ViewQuestions from './components/ViewQuestions.vue'
 import CreateQuestionsForTests from './components/CreateQuestionsForTests.vue'
 import CreateDataTests from './components/CreateDataTests'
+import ResultTest from './components/ResultTest'
 
 import SingIn from './components/SingIn.vue'
  
@@ -40,6 +41,11 @@ const routes = [
     name: 'CreateDataTests',
     path: '/CreateDataTests',
     component: CreateDataTests
+  },
+  {
+    name: 'ResultTest',
+    path: '/ResultTest',
+    component: ResultTest
   },
 ];
  

@@ -1,31 +1,29 @@
 <template>
   <div>
-    <div v-for="question in questions" :key="question.id">
+    <div v-for="question in filteredQuestions" :key="question.id">
       <div v-if="testID == question.test_id">
         <p class="quest">{{ question.TextQuestion }}</p>
-        <div class="check">
-          <p class="quest">{{ question.Answer1 }}</p>
-          <input type="checkbox" :id="'Answer1-' + question.id" name="scales" />
-        </div>
-
-        <div class="check">
-          <p class="quest">{{ question.Answer2 }}</p>
-          <input type="checkbox" :id="'Answer2-' + question.id" name="scales" />
-        </div>
-        <div class="check">
-          <p class="quest">{{ question.Answer3 }}</p>
-          <input type="checkbox" :id="'Answer3-' + question.id" name="scales" />
-        </div>
-        <div class="check">
-          <p class="quest">{{ question.AnswerQuestion }}</p>
+        <div
+          class="check"
+          v-for="answer in shuffle([
+            question.Answer1,
+            question.Answer2,
+            question.Answer3,
+            question.AnswerQuestion,
+          ])"
+          :key="answer"
+        >
+          <p class="quest">{{ answer }}</p>
           <input
-            @click="TestResult"
             type="checkbox"
-            :id="'TrueAnswer-' + question.id"
+            :id="'Answer-' + question.id + '-' + answer"
             name="scales"
           />
         </div>
       </div>
+    </div>
+    <div>
+      <router-link to="/ResultTest">Показать результаты</router-link>
     </div>
   </div>
 </template>
@@ -38,18 +36,30 @@ export default {
       questions: [],
       testID: this.$store.state.testID,
       result: 0,
+      filteredQuestions: [],
     };
   },
+
   methods: {
     async ViewQuestions() {
       try {
         const questions = await fetch("http://localhost:5000/questions");
         const data = await questions.json();
         this.questions = data;
-        console.log(this.questions);
+        console.log(this.questions, "q");
+
+        this.filteredQuestions = this.questions.filter(
+          (question) => question.test_id == this.testID
+        );
+        this.$store.state.AllQuestions = this.filteredQuestions;
+        console.log(this.$store.state.AllQuestions, "!!!");
       } catch (err) {
         console.log(err);
       }
+    },
+    beforeRouteLeave() {
+      this.$store.state.TestResult = 0;
+      this.$store.state.AllQuestions = [];
     },
 
     TestResult(event) {
@@ -61,10 +71,30 @@ export default {
         this.result -= 1;
         console.log(this.result);
       }
+      this.$store.state.TestResult = this.result;
+    },
+
+    shuffle(array) {
+      let currentIndex = array.length;
+      let temporaryValue, randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
     },
   },
-  mounted() {
-    this.ViewQuestions();
+  async mounted() {
+    await this.ViewQuestions();
   },
 };
 </script>
