@@ -7,9 +7,7 @@
           Создать тест
         </button>
       </div>
-      <span class="ChooseQuestion__title"
-        >Список всех тестов, всего: {{ test.length }}</span
-      >
+      <span class="ChooseQuestion__title">Список всех тестов</span>
       <div class="ChooseQuestion__loader" v-if="dataLoad">
         <h2>Пожалуйста, подождите, идет загрузка</h2>
         <img src="../assets/svg/Loader.svg" alt="loader" />
@@ -17,10 +15,10 @@
       <div class="ChooseQuestion__content">
         <div
           class="ChooseQuestion__testsBlock"
-          v-for="test in test"
+          v-for="test in filteredTests"
           :key="test.id"
         >
-          <div v-if="test.TestCreator == userID || test.Tested == userID">
+          <div>
             <button
               @click="getTestID(test.idTest)"
               class="ChooseQuestion__tests"
@@ -42,6 +40,7 @@ export default {
       teacher: true,
       userID: this.$store.state.UserID,
       dataLoad: true,
+      filteredTests: [],
     };
   },
   methods: {
@@ -68,6 +67,9 @@ export default {
         console.log(err);
         this.dataLoad = false;
       }
+      this.filteredTests = this.test.filter(
+        (test) => test.TestCreator == this.userID
+      );
     },
 
     checkTeacher() {

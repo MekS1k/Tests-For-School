@@ -57,6 +57,9 @@
             Сохранить вопрос
           </button>
         </div>
+        <router-link class="createQuestion" to="/AddAndViewTest">
+          <p class="Answers__result">На главную</p>
+        </router-link>
       </div>
     </div>
   </div>
@@ -83,12 +86,7 @@ export default {
       try {
         const testResponse = await axios.get("http://localhost:5000/Tests");
         const allTests = testResponse.data;
-        this.AllTests = allTests.map((test) => ({
-          id: test.id,
-          TestCreator: test.TestCreator,
-          idTest: test.idTest,
-          TestName: test.TestName,
-        }));
+        this.AllTests = allTests;
       } catch (err) {
         console.log(err);
       }
