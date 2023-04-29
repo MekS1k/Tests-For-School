@@ -7,7 +7,9 @@
           Создать тест
         </button>
       </div>
-      <span class="ChooseQuestion__title">Список всех тестов</span>
+      <span class="ChooseQuestion__title"
+        >Список всех тестов, всего: {{ filteredTests.length }}</span
+      >
       <div class="ChooseQuestion__loader" v-if="dataLoad">
         <h2>Пожалуйста, подождите, идет загрузка</h2>
         <img src="../assets/svg/Loader.svg" alt="loader" />
@@ -41,6 +43,7 @@ export default {
       userID: this.$store.state.UserID,
       dataLoad: true,
       filteredTests: [],
+      role: this.$store.state.role,
     };
   },
   methods: {
@@ -49,9 +52,21 @@ export default {
     },
 
     getTestID(testID) {
-      this.$store.state.testID = testID;
-      console.log(this.$store.state.testID + "testID");
-      this.$router.push({ name: "ViewQuestions" });
+      const selectedTest = this.test.find((test) => test.idTest === testID);
+      const endDate = new Date(selectedTest.DateOfFinishTest);
+      const currentDate = new Date();
+      const today = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        currentDate.getDate()
+      );
+      if (today > endDate) {
+        alert("Извините, но время прохождения теста истекло.");
+      } else {
+        this.$store.state.testID = testID;
+        console.log(this.$store.state.testID + "testID");
+        this.$router.push({ name: "ViewQuestions" });
+      }
     },
 
     async viewTest() {
@@ -68,7 +83,9 @@ export default {
         this.dataLoad = false;
       }
       this.filteredTests = this.test.filter(
-        (test) => test.TestCreator == this.userID
+        (test) =>
+          test.TestCreator == this.userID ||
+          test.Tested == this.$store.state.roleForUnderstande
       );
     },
 

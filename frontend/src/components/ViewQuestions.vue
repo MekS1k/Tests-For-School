@@ -3,7 +3,6 @@
     <div class="headerSection">
       <div class="headerSection__content">
         <div v-for="(question, index) in filteredQuestions" :key="question.id">
-          <!-- <div v-if="testID == question.test_id"> -->
           <div>
             <div class="headerSection__question">
               <img
@@ -30,6 +29,7 @@
                 <input
                   type="checkbox"
                   :id="'Answer-' + question.id + '-' + answer"
+                  :value="answer"
                   class="Answers__input"
                   @click="TestResult"
                 />
@@ -89,7 +89,7 @@ export default {
     },
 
     TestResult(event) {
-      const userAnswer = event.target.nextSibling.textContent;
+      const userAnswer = event.target.value;
       const selectedQuestion = this.filteredQuestions.find(
         (question) => question.AnswerQuestion === userAnswer
       );
