@@ -56,10 +56,10 @@
           <button @click="saveQuestions" class="createButton">
             Сохранить вопрос
           </button>
+          <router-link to="/AddAndViewTest">
+            <button class="createButton">На главную</button>
+          </router-link>
         </div>
-        <router-link class="createQuestion" to="/AddAndViewTest">
-          <p class="Answers__result">На главную</p>
-        </router-link>
       </div>
     </div>
   </div>
@@ -226,6 +226,8 @@ select option {
   position: absolute;
   bottom: 0;
   margin: 5rem 0;
+  display: flex;
+  gap: 3rem;
   .createButton {
     color: #fff;
     text-decoration: none;
@@ -237,6 +239,7 @@ select option {
     font-size: 2rem;
     transition: all 0.3s ease;
     cursor: pointer;
+    width: 20rem;
   }
   .createButton:hover {
     background: #417c9e;

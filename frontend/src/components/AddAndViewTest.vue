@@ -30,6 +30,9 @@
           </div>
         </div>
       </div>
+      <router-link class="ChooseQuestion__adminSection" to="/">
+        <button class="ChooseQuestion__addBtn">Выйти</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -104,6 +107,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+a {
+  text-decoration: none;
+  margin-bottom: 3rem;
+}
+.exit {
+  bottom: 0;
+  margin: 5rem 0;
+  .createButton {
+    color: #fff;
+    text-decoration: none;
+    background: #3d9dd3;
+    border-radius: 0.6rem;
+    border: none;
+    padding: 1rem;
+    font-family: "Jost", sans-serif;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .createButton:hover {
+    background: #417c9e;
+  }
+}
+
 .Container {
   display: flex;
   flex-direction: column;
@@ -133,6 +160,7 @@ export default {
     overflow-y: auto;
     width: 95%;
     height: 100%;
+    margin-bottom: 2rem;
   }
   &__adminSection {
     width: 25rem;

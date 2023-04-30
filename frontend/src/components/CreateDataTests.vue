@@ -50,6 +50,9 @@
 
       <div class="createQuestion">
         <button @click="saveTest" class="createButton">Добавить вопросы</button>
+        <router-link to="/AddAndViewTest">
+          <button class="createButton">Назад</button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -100,6 +103,28 @@ export default {
 </script>
 
 <style lang="scss" lang="scss" scoped>
+.createQuestion {
+  position: absolute;
+  bottom: 0;
+  margin: 5rem 0;
+  .createButton {
+    color: #fff;
+    text-decoration: none;
+    background: #3d9dd3;
+    border-radius: 0.6rem;
+    border: none;
+    padding: 1rem;
+    font-family: "Jost", sans-serif;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 20rem;
+  }
+  .createButton:hover {
+    background: #417c9e;
+  }
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -207,6 +232,8 @@ select option {
   position: absolute;
   bottom: 0;
   margin: 5rem 0;
+  display: flex;
+  gap: 3rem;
   .createButton {
     color: #fff;
     text-decoration: none;
