@@ -42,9 +42,9 @@ export default {
 
       if (this.score <= 100 && this.score >= 80) {
         this.grade = 5;
-      } else if (this.score <= 70 && this.score >= 60) {
+      } else if (this.score <= 79 && this.score >= 60) {
         this.grade = 4;
-      } else if (this.score <= 50 && this.score >= 40) {
+      } else if (this.score <= 59 && this.score >= 40) {
         this.grade = 3;
       } else {
         this.grade = 2;
