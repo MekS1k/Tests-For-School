@@ -105,6 +105,7 @@ export default {
       try {
         const role = await fetch("http://localhost:5000/role");
         const data = await role.json();
+        console.log(data);
         this.role = data;
         this.$store.state.role = this.role;
       } catch (err) {
