@@ -55,8 +55,8 @@ export default {
   mounted() {
     this.score = 0;
     this.grade = 0;
-    this.$store.state.TestResult,
-    this.$store.state.AllQuestions,
+    this.$store.state.TestResult = 0,
+    this.$store.state.AllQuestions = 0,
     this.ShowResultTest();
   },
 };
