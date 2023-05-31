@@ -159,11 +159,10 @@ export default {
     max-width: 36rem;
     margin: 0 auto;
     font-size: 3rem;
-    color: #4a4543;
   }
   &__SvgBlock {
     width: 100%;
-    background-color: #3d9dd3;
+    background-color: #6c8cd5;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -145,14 +145,14 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(../assets/BackgroundLayout.png);
+  background-color: #4671d5;
   background-size: cover;
   height: 100%;
 }
 .headerSection {
   padding: 2rem 0;
   margin: 5rem 0;
-  background-color: #405e8b;
+  background-color: #6c8cd5;
   color: #fff;
   font-family: "Jost", sans-serif;
   font-size: 2rem;
@@ -163,7 +163,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 0.7rem;
+  border-radius: 50px;
 
   &__content {
     overflow: hidden;

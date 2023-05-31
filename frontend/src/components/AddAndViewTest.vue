@@ -56,22 +56,29 @@ export default {
 
     getTestID(testID) {
       const selectedTest = this.test.find((test) => test.idTest === testID);
-      const endDate = new Date(selectedTest.DateOfFinishTest);
-      const currentDate = new Date();
-      const today = new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        currentDate.getDate()
-      );
-      if (today > endDate) {
-        alert("Извините, но время прохождения теста истекло.");
+
+      if (selectedTest.DateOfFinishTest) {
+        const endDate = new Date(selectedTest.DateOfFinishTest);
+        const currentDate = new Date();
+        const today = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth(),
+          currentDate.getDate()
+        );
+
+        if (today > endDate) {
+          alert("Извините, но время прохождения теста истекло.");
+        } else {
+          this.$store.state.testID = testID;
+          console.log(this.$store.state.testID + "testID");
+          this.$router.push({ name: "ViewQuestions" });
+        }
       } else {
         this.$store.state.testID = testID;
         console.log(this.$store.state.testID + "testID");
         this.$router.push({ name: "ViewQuestions" });
       }
     },
-
     async viewTest() {
       try {
         const test = await fetch("http://localhost:5000/Tests");
@@ -136,24 +143,24 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(../assets/BackgroundLayout.png);
+  background-color: #4671d5;
   background-size: cover;
   height: 100%;
 }
 .ChooseQuestion {
   padding: 1rem 0;
   margin: 5rem 0;
-  background-color: #405e8b;
+  background-color: #6c8cd5;
   color: #fff;
   font-family: "Jost", sans-serif;
-  width: 60rem;
+  width: 100rem;
   height: 70rem;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 0.7rem;
+  border-radius: 50px;
   &__content {
     overflow: hidden;
     overflow-x: hidden;

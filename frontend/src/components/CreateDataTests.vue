@@ -76,13 +76,16 @@ export default {
   methods: {
     async saveTest() {
       try {
+        const dateOfFinishTest = this.DateOfFinishTest || null; 
+
         await axios.post("http://localhost:5000/Tests", {
           TestName: this.TestName,
           DateOfCreateTest: this.DateOfCreateTest,
-          DateOfFinishTest: this.DateOfFinishTest,
+          DateOfFinishTest: dateOfFinishTest,
           TestCreator: this.UserID,
           Tested: this.Tested,
         });
+
         this.TestName = "";
         this.DateOfCreateTest = "";
         this.DateOfFinishTest = "";
@@ -130,7 +133,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(../assets/BackgroundLayout.png);
+  background-color: #4671d5;
   background-size: cover;
   height: 100%;
   overflow-x: hidden;
@@ -140,20 +143,20 @@ export default {
 .questions {
   padding: 2rem 0;
   margin: 5rem 0;
-  background-color: #405e8b;
+  background-color: #6c8cd5;
   color: #fff;
   font-family: "Jost", sans-serif;
   font-size: 2rem;
-  width: 70rem;
+  width: 100rem;
   min-width: 50rem;
-  height: 50rem;
+  height: 70rem;
   overflow-y: auto;
   position: relative;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 0.7rem;
+  border-radius: 50px;
 
   &__inputsBlock {
     overflow: hidden;
